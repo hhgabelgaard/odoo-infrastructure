@@ -8,13 +8,10 @@
     <field name="name">infrastructure.server_hostname.select</field>
     <field name="model">infrastructure.server_hostname</field>
     <field name="arch" type="xml">
-        <search string="server_hostname" version="7.0">
-            <group string="By Attribute">
-                <field name="name" string="Name"/>
-                <field name="wildcard" string="Wild Card"/>
-            </group>
-            <group string="By object">
-            </group>
+        <search string="server_hostname">
+            <field name="name"/>
+            <field name="wildcard"/>
+            <field name="partner_id"/>
         </search>
     </field>
 </record>
@@ -24,7 +21,7 @@
     <field name="name">infrastructure.server_hostname.form</field>
     <field name="model">infrastructure.server_hostname</field>
     <field name="arch" type="xml">
-        <form string="server_hostname" version="7.0">
+        <form string="server_hostname">
             <header>
             </header>
             <sheet string="server_hostname">
@@ -32,7 +29,20 @@
                 <field name="name"/>
                 <field name="wildcard"/>
                 <field name="domain_regex"/>
+                <field name="partner_id"/>
+                <field name="ssl_available"/>
              </group>
+            <notebook attrs="{'invisible':[('ssl_available','=',False)]}">
+                <page string="SSL Certificate">
+                    <field name="ssl_certificate" attrs="{'required':[('ssl_available','=',True)]}"/>
+                </page>
+                <page string="SSL Intermadiate Certificate">
+                    <field name="ssl_intermediate_certificate"/>
+                </page>
+                <page string="SSL Certificate KEY">
+                    <field name="ssl_certificate_key" attrs="{'required':[('ssl_available','=',True)]}"/>
+                </page>
+            </notebook>
             </sheet>
         </form>
     </field>
@@ -44,9 +54,12 @@
     <field name="model">infrastructure.server_hostname</field>
     <field name="arch" type="xml">
         <tree string="server_hostname">
+            <field name="sequence" widget="handle"/>
             <field name="name"/>
             <field name="wildcard"/>
             <field name="domain_regex"/>
+            <field name="partner_id"/>
+            <field name="ssl_available"/>
         </tree>
     </field>
 </record>

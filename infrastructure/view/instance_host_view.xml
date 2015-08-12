@@ -8,13 +8,9 @@
     <field name="name">infrastructure.instance_host.select</field>
     <field name="model">infrastructure.instance_host</field>
     <field name="arch" type="xml">
-        <search string="instance_host" version="7.0">
-            <group string="By Attribute">
-                <field name="server_hostname_id" string="Server Hostname"/>
-                <field name="subdomain" string="Subdomain"/>
-            </group>
-            <group string="By object">
-            </group>
+        <search string="instance_host">
+            <field name="server_hostname_id"/>
+            <field name="subdomain"/>
         </search>
     </field>
 </record>
@@ -24,23 +20,19 @@
     <field name="name">infrastructure.instance_host.form</field>
     <field name="model">infrastructure.instance_host</field>
     <field name="arch" type="xml">
-        <form string="instance_host" version="7.0">
+        <form string="instance_host">
             <header>
             </header>
             <sheet string="instance_host">
+                <p>You can only choose hostnames that are configured in this server and that has partner = False or partner = this environment partner</p>
              <group>
-                <field name="server_hostname_id"
-                    domain="[('server_id','=',parent.server_id)]"
-                    />
-                <field name="subdomain"
-                    attrs="{'invisible':[('wildcard','!=',True)]}"
-                    />
-                <field name="database_type_id"/>
-                <field name="wildcard"
-                    invisible="True"
-                    />
+                <field name="server_hostname_id" domain="[('server_id','=',parent.server_id),'|', ('partner_id','=', False), ('partner_id','=', partner_id)]" options="{'no_create': True}"/>
+                <field name="subdomain" attrs="{'invisible':[('wildcard','!=',True)]}"/>
+                <field name="wildcard" invisible="True"/>
+                <field name="prefix" attrs="{'invisible':[('wildcard','!=',True)]}"/>
+                <field name="type"/>
                 <field name="name"/>
-                <field name="database_id"/>
+                <field name="partner_id"/>
              </group>
             </sheet>
         </form>
@@ -53,6 +45,7 @@
     <field name="model">infrastructure.instance_host</field>
     <field name="arch" type="xml">
         <tree string="instance_host">
+            <field name="type"/>
             <field name="server_hostname_id"/>
             <field name="subdomain"/>
             <field name="name"/>

@@ -8,7 +8,7 @@
     <field name="name">infrastructure.repository.select</field>
     <field name="model">infrastructure.repository</field>
     <field name="arch" type="xml">
-        <search string="repository" version="7.0">
+        <search string="repository">
             <group string="By Attribute">
                 <field name="name" string="Name"/>
                 <field name="directory" string="Directory"/>
@@ -26,7 +26,7 @@
     <field name="name">infrastructure.repository.form</field>
     <field name="model">infrastructure.repository</field>
     <field name="arch" type="xml">
-        <form string="repository" version="7.0">
+        <form string="repository">
             <header>
             </header>
             <sheet string="repository">
@@ -37,11 +37,8 @@
                 <field name="addons_subdirectory"/>
                 <field name="url"/>
                 <field name="pip_packages"/>
-                <field name="is_server"/>
                 <field name="default_in_new_env"/>
-                <field name="install_server_command"
-                    attrs="{'required':[('is_server','=',True)],'invisible':[('is_server','!=',True)]}"
-                    />
+                <field name="server_wide_modules"/>
             <field name="branch_ids"
                     widget="many2many_tags"
                     />
@@ -66,7 +63,6 @@
             <field name="type"/>
             <field name="url"/>
             <field name="pip_packages"/>
-            <field name="is_server"/>
         </tree>
     </field>
 </record>
