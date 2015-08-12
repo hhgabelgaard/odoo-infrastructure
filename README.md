@@ -1,5 +1,7 @@
-odoo-infrastructure
-===================
+[![Build Status](https://travis-ci.org/ingadhoc/odoo-infrastructure.svg?branch=8.0)](https://travis-ci.org/ingadhoc/odoo-infrastructure)
+[![Coverage Status](https://coveralls.io/repos/ingadhoc/odoo-infrastructure/badge.png?branch=8.0)](https://coveralls.io/r/ingadhoc/odoo-infrastructure?branch=8.0)
+
+# odoo infrastructure
 
 Server and general underlying infrastructure management for Odoo
 
@@ -12,19 +14,13 @@ Server and general underlying infrastructure management for Odoo
 If you don't have Pip, find it here: http://pypi.python.org/pypi/pip
 
 ## Contributing
-
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
+We follow same guidelines and advice than [Odoo Argentina](https://github.com/ingadhoc/odoo-argentina/wiki). In summary:
 
 ## Credits
-
 <p>
-<img alt="IngAdhoc" src="http://fotos.subefotos.com/a72e91469ba66af8f91ad7d775536930o.png" />
+<img alt="ADHOC" src="http://fotos.subefotos.com/83fed853c1e15a8023b86b2b22d6145bo.png" />
 </p>
-**Ingeniería Adhoc** - www.ingadhoc.com
+**Adhoc SA** - www.adhoc.com.ar
 
 ## License
 

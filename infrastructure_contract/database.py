@@ -1,7 +1,10 @@
- #-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+##############################################################################
+# For copyright and license notices, see __openerp__.py file in module root
+# directory
+##############################################################################
 from openerp import models, fields, api, _
 from openerp.exceptions import Warning
-from urlparse import urlparse
 
 
 class database(models.Model):
@@ -31,12 +34,11 @@ class database(models.Model):
             'user',
             'database',
             'server_host',
-            'number']
+            'contract_id']
         ['self.asd', ]
         commercial_partner = self.contract_id.partner_id.commercial_partner_id
 
-        server_host = urlparse(
-            self.env['ir.config_parameter'].get_param('web.base.url')).netloc
+        server_host = self.env['ir.config_parameter'].get_param('web.base.url')
 
         # search for user related to commercial partner
         user = self.env['res.users'].search([(
@@ -54,6 +56,6 @@ class database(models.Model):
             user.login,
             self._cr.dbname,
             server_host,
-            self.contract_id.code,
+            self.contract_id.id,
             ]]
         client.model('support.contract').load(imp_fields, rows)

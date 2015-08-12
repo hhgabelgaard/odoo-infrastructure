@@ -1,3 +1,7 @@
 # -*- coding: utf-8 -*-
-
-import project_issue
+##############################################################################
+# For copyright and license notices, see __openerp__.py file in module root
+# directory
+##############################################################################
+from . import project_issue
+from . import database

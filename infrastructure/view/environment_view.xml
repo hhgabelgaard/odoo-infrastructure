@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- infrastructure.environment -->
 <openerp>
 <data>
 
@@ -11,14 +10,14 @@
         <search string="environment">
             <field name="number"/>
             <field name="name"/>
-            <field name="type"/>
             <field name="description"/>
             <field name="partner_id"/>
-            <field name="environment_version_id"/>
+            <field name="odoo_version_id"/>
             <field name="server_id"/>
+            <filter string="Not Cancel" name="not_cancel" domain="[('state','!=','cancel')]"/>
             <group expand="0" string="Group By...">
                 <filter string="Partner" context="{'group_by':'partner_id'}"/>
-                <filter string="Environment Version" context="{'group_by':'environment_version_id'}"/>
+                <filter string="Environment Version" context="{'group_by':'odoo_version_id'}"/>
                 <filter string="Server" context="{'group_by':'server_id'}"/>
             </group>
         </search>
@@ -51,14 +50,13 @@
                     />
             </header>
             <sheet string="environment">
-                <field name="sever_copied" invisible="1"/>
                 <div class="col-md-6">
                     <h2 class="oe_inline">
-                        <field name="server_id" class="oe_inline"/>
+                        <field name="server_id" options="{'no_create': True}" class="oe_inline"/>
                     </h2>
                     <h1>
-                        <field name="name" default_focus="1" placeholder="Name...(ej. 'ingadhoc-80'"/>
-                        <field name="description" placeholder="Description..."/>
+                        <field name="partner_id" default_focus="1" placeholder="Partner..."/>
+                        <field name="odoo_version_id" options="{'no_create': True}" placeholder="Odoo Version..."/>
                     </h1>
                 </div>
                 <div class="oe_right oe_button_box" name="buttons">
@@ -70,27 +68,23 @@
                     </button>
                 </div>
                 <div class="oe_right oe_button_box" name="buttons_action">
-                    <button icon="fa-sun-o " type="object" string="Create Environment" class="oe_stat_button" help="Create Env, Source Path, Install Server and Install Pip Packages" name="create_environment" states="draft"/>
-                    <button icon="fa-refresh" type="object" string="Install Odoo" class="oe_stat_button" name="install_odoo" attrs="{'invisible':['|',('sever_copied', '=', False),('state', '!=', 'active')]}"/>
+                    <button icon="fa-sun-o " type="object" string="Create Environment" class="oe_stat_button" help="Create Environment" name="create_environment" states="draft"/>
                     <button icon="fa-trash-o" type="object" string="Delete" class="oe_stat_button" name="delete" states="active" confirm="Environment will be delated from server and will be unrecoverable, are you sure you want to continue?"/>
                 </div>
                 <group>
                     <group>
-                        <field name="number" placeholder="(2 digits, >= 10)"/>
-                        <field name="partner_id"/>
-                        <field name="type"/>
-                        <field name="environment_version_id"/>
+                        <field name="name"/>
+                        <field name="description"/>
                     </group>
                     <group>
-                        <field name="install_server_command"/>
-                        <field name="path"/>
-                        <field name="sources_path"/>
-                        <field name="backups_path"/>
+                        <field name="number"/>
                     </group>
                 </group>
                 <notebook>
-                    <page string="Configuration">
-                        <field name="environment_repository_ids" context="{'default_server_id': server_id}"/>
+                    <page string="Advanced Conf.">
+                        <group>
+                            <field name="path"/>
+                        </group>
                     </page>
                     <page string="Notes">
                         <field name="note"/>
@@ -115,60 +109,62 @@
                 colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('active',); red:state in ()"
                 >
                 <field name="message_unread" invisible="1"/>
-                <field name="name"/>
                 <field name="number"/>
-                <field name="type"/>
+                <field name="odoo_version_id"/>
+                <field name="name"/>
                 <field name="description"/>
                 <field name="partner_id"/>
-                <field name="environment_version_id"/>
                 <field name="server_id"/>
                 <field name="state"/>
             </tree>
         </field>
     </record>
 
-<record model="ir.ui.view" id="view_infrastructure_environment_kanban">
-  <field name="name">infrastructure.environment..kanban</field>
-  <field name="model">infrastructure.environment</field>
-  <field name="arch" type="xml">
-    <kanban>
-      <field name="color"/>
-      <field name="name"/>
-      <field name="partner_id"/>
-      <field name="description"/>
-      <field name="environment_version_id"/>
-      <templates>
-        <t t-name="kanban-box">
-            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_project oe_kanban_global_click">
-                <div class="oe_dropdown_kanban">
-                  <span class="oe_dropdown_toggle">
-                    <span class="oe_e">í</span>
-                    <ul class="oe_dropdown_menu">
-                      <li><a type="delete">Delete</a></li>
-                      <li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
-                    </ul>
-                  </span>
-                </div>
-                <div class="oe_kanban_content">
-                    <h4 class="text-center"><strong><field name="name"/></strong></h4>
-                    <div class="oe_clear"></div>
-                    <field name="environment_version_id"/>
-                </div>
-            </div>
-        </t>
-      </templates>
-    </kanban>
-  </field>
+<!-- KANBAN -->
+<record model="ir.ui.view" id="view_environment_kanban">
+    <field name="name">infrastructure.environment.kanban</field>
+    <field name="model">infrastructure.environment</field>
+    <field name="arch" type="xml">
+        <kanban class="oe_background_grey">
+            <field name="name"/>
+            <field name="partner_id"/>
+            <field name="color"/>
+            <field name="state"/>
+            <field name="instance_count"/>
+            <field name="database_count"/>
+            <templates>
+                <t t-name="kanban-box">
+                    <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card">
+                        <div class="oe_kanban_content" style="width: 150px; height: 70px; margin: 0 auto;">
+                            <h4 class="text-center"><a type="open"><field name="name"/></a></h4>
+                            <div class="oe_kanban_instances_list">
+                                <a name="action_view_instances" type="object" style="margin-right: 10px">
+                                    <t t-raw="record.instance_count.raw_value"/> Instances
+                                </a>
+                            </div>
+                            <div class="oe_kanban_database_list">
+                                <a name="action_view_databases" type="object" style="margin-right: 10px">
+                                    <t t-raw="record.database_count.raw_value"/> Database
+                                </a>
+                            </div>
+                        </div>
+                        <div class="oe_clear"/> 
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
 </record>
 
 <record id="action_infrastructure_environment_environments" model="ir.actions.act_window">
     <field name="name">Environments</field>
     <field name="res_model">infrastructure.environment</field>
     <field name="view_type">form</field>
-    <field name="view_mode">tree,form</field>
-    <field name="view_id" ref="view_infrastructure_environment_tree"/>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="view_id" ref="view_environment_kanban"/>
     <field name="search_view_id" ref="view_infrastructure_environment_filter"/>
     <field name="domain">[]</field>
+    <field name="context">{'search_default_not_cancel': 1}</field>
 </record>
 
 <menuitem
