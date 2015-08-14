@@ -11,10 +11,9 @@
         <search string="certificat" version="7.0">
             <group string="By Attribute">
                 <field name="name" string="Name"/>
-                <field name="rule" string="Rule"/>
+                <field name="name" string="server_id"/>
             </group>
-            <group string="By Object">
-            </group>
+            
         </search>
     </field>
 </record>
