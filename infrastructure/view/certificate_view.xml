@@ -3,7 +3,7 @@
 <openerp>
 <data>
 
-<!-- SEARCH VIEW 
+<!-- SEARCH VIEW --> 
 <record id="view_infrastructure_certificate_filter" model="ir.ui.view">
     <field name="name">infrastructure.certificate.select</field>
     <field name="model">infrastructure.certificate</field>
@@ -18,7 +18,7 @@
         </search>
     </field>
 </record>
--->
+
 
 <!-- FORMVIEW -->
 <record id="view_infrastructure_certificate_form" model="ir.ui.view">
@@ -65,7 +65,7 @@
 </record>
 
 <menuitem
-    name="DB Filters"
+    name="SSL Certificates"
     id="menu_certificats"
     sequence="100"
     action="action_infrastructure_certificate_certificats"
