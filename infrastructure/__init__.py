@@ -8,6 +8,7 @@ import database_backup
 import database_module
 import db_backup_policy
 import db_filter
+import certificate
 import environment
 import environment_repository
 import environment_version
