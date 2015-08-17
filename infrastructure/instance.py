@@ -78,11 +78,11 @@ class instance(models.Model):
         readonly=True,
         states={'draft': [('readonly', False)]},
     )
-    
-    certificate = fields.Many2one(
+
+    certificate_id = fields.Many2one(
         'infrastructure.certificate',
         string='Certificate',
-        domain=[('server_id','=',server_id)]
+        # domain=[('server_id','=',server_id)]
     )
 
     db_filter = fields.Many2one(

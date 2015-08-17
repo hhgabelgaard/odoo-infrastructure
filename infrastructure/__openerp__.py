@@ -30,6 +30,7 @@
         u'view/database_view.xml',
         u'view/db_backup_policy_view.xml',
         u'view/db_filter_view.xml',
+        u'view/certificate_view.xml',
         u'view/instance_view.xml',
         u'view/service_command_view.xml',
         u'view/repository_branch_view.xml',

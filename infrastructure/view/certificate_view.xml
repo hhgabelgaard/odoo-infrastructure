@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- infrastructure.certificat -->
+<openerp>
+<data>
+
+<!-- SEARCH VIEW --> 
+<record id="view_infrastructure_certificate_filter" model="ir.ui.view">
+    <field name="name">infrastructure.certificate.select</field>
+    <field name="model">infrastructure.certificate</field>
+    <field name="arch" type="xml">
+        <search string="certificat" version="7.0">
+            <group string="By Attribute">
+                <field name="name" string="Name"/>
+                <field name="name" string="server_id"/>
+            </group>
+            
+        </search>
+    </field>
+</record>
+
+
+<!-- FORMVIEW -->
+<record id="view_infrastructure_certificate_form" model="ir.ui.view">
+    <field name="name">infrastructure.certificate.form</field>
+    <field name="model">infrastructure.certificate</field>
+    <field name="arch" type="xml">
+        <form string="SSL Certificat" version="7.0">
+            <header>
+            </header>
+            <sheet string="SSL Certificat">
+             <group>
+                <field name="name"/>
+                <field name="pemfile"/>
+                <field name="keyfile"/>
+                <field name="server_id"/>
+             </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<!-- TREEVIEW -->
+<record id="view_infrastructure_certificate_tree" model="ir.ui.view">
+    <field name="name">infrastructure.certificate.tree</field>
+    <field name="model">infrastructure.certificate</field>
+    <field name="arch" type="xml">
+        <tree string="SSL Certificat">
+            <field name="name"/>
+            <field name="pemfile"/>
+            <field name="keyfile"/>
+            <field name="server_id"/>
+        </tree>
+    </field>
+</record>
+
+<record id="action_infrastructure_certificate_certificats" model="ir.actions.act_window">
+    <field name="name">SSL Certificates</field>
+    <field name="res_model">infrastructure.certificate</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="view_infrastructure_certificate_tree"/>
+    <field name="search_view_id" ref="view_infrastructure_certificate_filter"/>
+    <field name="domain">[]</field>
+</record>
+
+<menuitem
+    name="SSL Certificates"
+    id="menu_certificats"
+    sequence="100"
+    action="action_infrastructure_certificate_certificats"
+    parent="menu_databases_conf"
+    groups="group_manager"
+    />
+
+</data>
+</openerp>
