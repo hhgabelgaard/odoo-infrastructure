@@ -319,7 +319,7 @@ class instance(models.Model):
     certificate = fields.Many2one(
         'infrastructure.certificate',
         string='Certificate',
-        domain=[('server_id','=',server_id)]
+        # domain=[('server_id','=',server_id)]
     )
 
     _sql_constraints = [
