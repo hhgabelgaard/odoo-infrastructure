@@ -773,8 +773,10 @@ class instance(models.Model):
             if host.database_id:
                 if host.certificate_id:
                     ssl_section = nginx_ssl_section_template % (host.certificate_id.pemfile, host.certificate_id.keyfile)
+                    redirect_section = nginx_site_http_redirect_template % (host.name)
                 else:
                     ssl_section = ''
+                    redirect_section = ''
                     
                 nginx_site_file += nginx_site_dbfilter_template % (
                     listen_port, 
@@ -784,7 +786,7 @@ class instance(models.Model):
                     error_log + '_' + host.database_id.name,
                     xmlrpc_port,
                     host.database_id.name,
-                    nginx_long_polling)
+                    nginx_long_polling) + redirect_section
 
             else:
                 server_names += host.name + ' '
@@ -795,8 +797,10 @@ class instance(models.Model):
         if server_names > '':
             if self.certificate_id:
                 ssl_section = ssl_section_template % (self.certificate_id.pemfile, self.certificate_id.keyfile)
+                redirect_section = nginx_site_http_redirect_template % (server_names) 
             else:
                 ssl_section = ''
+                redirect_section = ''
             nginx_site_file += nginx_site_template % (
                 listen_port, 
                 ssl_section,
@@ -805,7 +809,7 @@ class instance(models.Model):
                 error_log,
                 xmlrpc_port,
                 nginx_long_polling
-            )
+            ) + redirect_section
 
         # Check nginx sites-enabled directory exists
         nginx_sites_path = self.environment_id.server_id.nginx_sites_path
@@ -887,7 +891,7 @@ server {
 nginx_site_dbfilter_template = """
 server {
         listen %i;
-        %S
+        %s
         server_name %s;
         access_log %s;
         error_log %s;
@@ -902,6 +906,17 @@ server {
     %s
 
 }
+
+"""
+nginx_site_http_redirect_template = """
+server {
+    listen   80;
+
+    server_name %s;
+
+    return 301 https://$server_name$request_uri;
+}
+
 """
 # TODO llevar esto a un archivo y leerlo de alli
 template_service_file = """
