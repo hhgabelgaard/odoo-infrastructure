@@ -352,7 +352,8 @@ class database(models.Model):
     def get_sock(self, service='db', max_attempts=5):
         self.ensure_one()
         base_url = self.instance_id.main_hostname
-        rpc_db_url = 'http://%s/xmlrpc/%s' % (base_url, service)
+        proto = 'https' if self.instance_id.type == u'secure' else 'http'
+        rpc_db_url = '%s://%s/xmlrpc/%s' % (proto, base_url, service)
         sock = xmlrpclib.ServerProxy(rpc_db_url)
 
         # try connection
@@ -598,8 +599,9 @@ class database(models.Model):
         self.ensure_one()
         try:
             if not_database:
+                proto = 'https' if self.instance_id.type == u'secure' else 'http'
                 return Client(
-                    'http://%s' % (self.instance_id.main_hostname))
+                    '%s://%s' % (proto, self.instance_id.main_hostname))
         except Exception, e:
             raise except_orm(
                 _("Unable to Connect to Database."),
@@ -607,16 +609,18 @@ class database(models.Model):
             )
         # First try to connect using instance pass
         try:
+            proto = 'https' if self.instance_id.type == u'secure' else 'http'
             return Client(
-                'http://%s' % (self.instance_id.main_hostname),
+                '%s://%s' % (proto, self.instance_id.main_hostname),
                 db=self.name,
                 user='admin',
                 password=self.instance_id.admin_pass)
         # then try to connect using database pass
         except:
             try:
+                proto = 'https' if self.instance_id.type == u'secure' else 'http'
                 return Client(
-                    'http://%s' % (self.instance_id.main_hostname),
+                    '%s://%s' % (proto, self.instance_id.main_hostname),
                     db=self.name,
                     user='admin',
                     password=self.admin_password)
@@ -868,7 +872,7 @@ class database(models.Model):
 
         backups_path = self.instance_id.environment_id.backups_path
 
-        dump_file = path.join(backups_path, dump_name)
+        dump_file = os.path.join(backups_path, dump_name)
 
         cmd = 'pg_dump %s --format=c --compress 9 --file=%s' % (
             self.name,
