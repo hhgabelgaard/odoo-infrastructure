@@ -796,7 +796,7 @@ class instance(models.Model):
 
         if server_names > '':
             if self.certificate_id:
-                ssl_section = ssl_section_template % (self.certificate_id.pemfile, self.certificate_id.keyfile)
+                ssl_section = nginx_ssl_section_template % (self.certificate_id.pemfile, self.certificate_id.keyfile)
                 redirect_section = nginx_site_http_redirect_template % (server_names) 
             else:
                 ssl_section = ''
