@@ -774,9 +774,11 @@ class instance(models.Model):
                 if host.certificate_id:
                     ssl_section = nginx_ssl_section_template % (host.certificate_id.pemfile, host.certificate_id.keyfile)
                     redirect_section = nginx_site_http_redirect_template % (host.name)
+                    listen_port = 443
                 else:
                     ssl_section = ''
                     redirect_section = ''
+                    listen_port = 80
                     
                 nginx_site_file += nginx_site_dbfilter_template % (
                     listen_port, 
