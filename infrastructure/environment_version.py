@@ -14,6 +14,7 @@ class environment_version(models.Model):
         ('saas-5', 'OpenERP saas-5'),
         ('master', 'Odoo master'),
         ('8.0', 'Odoo 8.0'),
+        ('9.0', 'Odoo 9.0'),
     ]
 
     _name = 'infrastructure.environment_version'
