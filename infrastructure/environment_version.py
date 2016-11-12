@@ -15,6 +15,7 @@ class environment_version(models.Model):
         ('master', 'Odoo master'),
         ('8.0', 'Odoo 8.0'),
         ('9.0', 'Odoo 9.0'),
+        ('10.0', 'Odoo 10.0'),
     ]
 
     _name = 'infrastructure.environment_version'
