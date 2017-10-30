@@ -2,7 +2,7 @@
 
 from odoo import netsvc
 from odoo import models, fields, api, _
-from oodo.exceptions import except_orm, Warning
+from odoo.exceptions import except_orm, Warning
 from fabric.api import shell_env
 # from fabric.api import sudo, shell_env
 # utilizamos nuestro custom sudo que da un warning
