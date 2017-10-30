@@ -1,6 +1,6 @@
  #-*- coding: utf-8 -*-
 
-from openerp import models, fields
+from odoo import models, fields
 
 
 class project_issue(models.Model):
@@ -11,6 +11,3 @@ class project_issue(models.Model):
         'infrastructure.database',
         string='Database'
     )
-
-
-project_issue()

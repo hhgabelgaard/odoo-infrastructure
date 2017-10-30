@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from openerp import netsvc
-from openerp import models, fields, api, _
-from openerp.exceptions import except_orm, Warning
+from odoo import netsvc
+from odoo import models, fields, api, _
+from oodo.exceptions import except_orm, Warning
 from fabric.api import shell_env
 # from fabric.api import sudo, shell_env
 # utilizamos nuestro custom sudo que da un warning
@@ -562,6 +562,8 @@ class instance(models.Model):
             command += ' --xmlrpcs-port=' + str(self.xml_rpcs_port)
         else:
             command += ' --no-xmlrpcs'
+            
+        command += ' ---logrotate'
 
         # TODO --cert-file and --pkey-file
         # TODO ver de agregar --log-db=LOG_DB

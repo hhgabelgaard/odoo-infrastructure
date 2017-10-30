@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields, api, SUPERUSER_ID, netsvc, _
-from openerp.exceptions import except_orm
+from odoo import models, fields, api, SUPERUSER_ID, netsvc, _
+from odoo.exceptions import except_orm
 import xmlrpclib
 import socket
 from dateutil.relativedelta import relativedelta

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from openerp.exceptions import Warning
-from openerp import models, fields
+from odoo.exceptions import Warning
+from odoo import models, fields
 
 
 class Certificate(models.Model):

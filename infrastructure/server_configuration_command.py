@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from openerp import models, fields, api
-from openerp.tools.safe_eval import safe_eval as eval
+from odoo import models, fields, api
+from odoo.tools.safe_eval import safe_eval as eval
 from fabric.api import run, cd, env
 # utilizamos nuestro custom sudo que da un warning
 from .server import custom_sudo as sudo

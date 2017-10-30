@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from openerp import netsvc
-from openerp import models, fields, api, _
-from openerp.exceptions import except_orm, Warning
+from odoo import netsvc
+from odoo import models, fields, api, _
+from odoo.exceptions import except_orm, Warning
 from fabric.api import env, reboot
 # from fabric.api import env, sudo, reboot
 # utilizamos nuestro custom sudo que da un warning
