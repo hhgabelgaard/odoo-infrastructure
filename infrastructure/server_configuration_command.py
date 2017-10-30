@@ -123,7 +123,7 @@ class server_configuration_command(models.Model):
         server_id = context.get('server_id', False)
         if not server_id:
             # TODO raise error
-            print 'no server_id on context'
+            #print 'no server_id on context'
             return False
         server = self.pool['infrastructure.server'].browse(
             cr, uid, server_id, context=context)
@@ -154,8 +154,8 @@ class server_configuration_command(models.Model):
                 'uid': uid,
                 'user': user,
             }
-            print 'command.command', command.command
-            print 'command.command.strip()', command.command.strip()
+            #print 'command.command', command.command
+            #print 'command.command.strip()', command.command.strip()
             # nocopy allows to return 'action'
             eval(command.command.strip(), cxt, mode="exec")
             if 'result' in cxt['context']:

@@ -35,12 +35,12 @@ class server_repository(models.Model):
 
     @api.one
     def get_repository(self):
-        print 'Getting repository'
+        #print 'Getting repository'
         self.path = self.repository_id.get_repository(self.server_id)[0]
 
     @api.one
     def update_repository(self, path=False):
-        print 'Updating repository'
+        #print 'Updating repository'
         self.server_id.get_env()
         if not path:
             path = self.path

@@ -483,7 +483,7 @@ class server(models.Model):
         self.get_env()
         # Ensure the package is installed
         if not is_installed('postfix'):
-            print 'self.postfix_hostname', self.postfix_hostname
+            #print 'self.postfix_hostname', self.postfix_hostname
             preseed_package('postfix', {
                 'postfix/main_mailer_type': ('select', 'Internet Site'),
                 'postfix/mailname': ('string', self.postfix_hostname),
