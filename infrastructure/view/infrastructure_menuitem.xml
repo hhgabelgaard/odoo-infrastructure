@@ -7,6 +7,7 @@
     id="menu_infrastructure"
     sequence="20"
     groups="group_user"
+    web_icon="infrascructure,static/description/icon.png"
     />
 
 <menuitem
